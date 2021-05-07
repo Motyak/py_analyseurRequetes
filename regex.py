@@ -20,8 +20,8 @@ class Commande:
         PAUSE = r'pause|arrêtes?|coupe(?:s|r)?|stop(?:pes|per|pe)?'
         REPRENDRE = r'repren(?:d|nes)|continue(?:s|r)?'
         ACTION = r'.*(?:(?P<LECTURE>{})|(?P<PAUSE>{})|(?P<REPRENDRE>{}))'.format(LECTURE, PAUSE, REPRENDRE)
-        SUJET = r'.*'
-        COMMANDE = r'(?P<ACTION>{})\ ?(?P<SUJET>{})'.format(ACTION, SUJET)
+        SUJET = r'[A-Za-z0-9\ ]*'
+        COMMANDE = r'(?P<ACTION>{})\ ?(?P<SUJET>{})\.?'.format(ACTION, SUJET)
 
         matches =  re.finditer(COMMANDE, texte, re.IGNORECASE)
 
@@ -35,7 +35,6 @@ class Commande:
             return Type.PAUSE
         else:
             return Type.REPRENDRE
-        
 
     def __str__(self):
         if self.typeCmde == Type.LECTURE:
