@@ -11,6 +11,7 @@ class Type(Enum):
 
 class Commande:
     def __init__(self, regexMatch):
+        self.match = regexMatch.group(0)
         self.typeCmde = Commande._getMatchCommandType(regexMatch)
         self.sujet = regexMatch.group(5)
 
@@ -33,19 +34,19 @@ class Commande:
             return Type.LECTURE
         elif match.group(3) != None:
             return Type.PAUSE
-        else:
+        else: # if match.group(4)
             return Type.REPRENDRE
 
     def __str__(self):
+        str = self.match + '\n  \'-> '
         if self.typeCmde == Type.LECTURE:
-            return '{}: {}'.format(self.typeCmde.value, self.sujet)
-        else:
-            return self.typeCmde.value
+            return str + '{}: {}'.format(self.typeCmde.value, self.sujet)
+        else: # if type == PAUSE | REPRENDRE
+            return str + self.typeCmde.value
 
 if __name__ == '__main__':
     texte = Path('inputs.txt').read_text()
 
     commandes = Commande.parserLesCommandes(texte)
 
-    for commande in commandes:
-        print(commande)
+    print('\n\n'.join([commande.__str__() for commande in commandes]))
