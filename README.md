@@ -1,6 +1,6 @@
 # ANALYSEUR DE REQUETES TEXTUELLES
 ## Pourquoi les expressions régulières ?
-L'avantage des regex est c'est qu'on peut facilement les modifier ou faire évoluer de manière tout à fait contrôlée (contrairement
+L'avantage des regex c'est qu'on peut facilement les modifier ou faire évoluer de manière tout à fait contrôlée (contrairement
 aux modèles IA). La plupart des langages possèdent une librairie
 regex, nous utiliserons la syntaxe PCRE qui est la plus répandue.
 
@@ -53,4 +53,80 @@ SUJET = [A-Za-z0-9\ ]*
 
 COMMANDE = ACTION\ ?SUJET\.?
          = (?P<ACTION>.*(?:(?P<LECTURE>joue(?:s|r)?|lance(?:s|r)?|écouter)|(?P<PAUSE>pause|arrêtes?|coupe(?:s|r)?|stop(?:pes|per|pe)?)|(?P<REPRENDRE>repren(?:d|nes)|continue(?:s|r)?)))\ ?(?P<SUJET>[A-Za-z0-9\ ]*)\.?
+```
+
+## Output
+```console
+$ python3 regex.py
+Joue Hotel California
+  '-> LECTURE: Hotel California       
+
+Joue Hotel California.
+  '-> LECTURE: Hotel California       
+
+Je veux que tu joues Hotel California.
+  '-> LECTURE: Hotel California
+
+Jouer Hotel California.
+  '-> LECTURE: Hotel California
+
+Lance Hotel California.
+  '-> LECTURE: Hotel California
+
+Je veux que tu lances Hotel California.
+  '-> LECTURE: Hotel California
+
+Lancer Hotel California.
+  '-> LECTURE: Hotel California
+
+Je veux écouter Hotel California.
+  '-> LECTURE: Hotel California
+
+Pause.
+  '-> PAUSE
+
+Arrête la musique.
+  '-> PAUSE
+
+Je veux que tu arrêtes la musique.
+  '-> PAUSE
+
+Coupe le son.
+  '-> PAUSE
+
+Couper.
+  '-> PAUSE
+
+Je veux que tu coupes la musique.
+  '-> PAUSE
+
+Stop la musique.
+  '-> PAUSE
+
+Je veux que tu stoppes la musique.
+  '-> PAUSE
+
+Stopper.
+  '-> PAUSE
+
+Stoppe la musique.
+  '-> PAUSE
+
+Reprend la lecture.
+  '-> REPRENDRE
+
+Reprendre la lecture.
+  '-> REPRENDRE
+
+Je veux que tu reprennes la lecture.
+  '-> REPRENDRE
+
+Continue la lecture.
+  '-> REPRENDRE
+
+Je veux que tu continues la lecture.
+  '-> REPRENDRE
+
+Continuer.
+  '-> REPRENDRE
 ```
