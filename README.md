@@ -3,9 +3,14 @@
 user@<>$ ./compile.sh
 ```
 
-## Launch server
+## Launch server (Speech to text)
 ```console
-user@<>$ python3 server.py
+user@<>$ python3 serveurSpeechToText.py
+```
+
+## Launch server (analyseur requetes)
+```console
+user@<>$ python3 serveurAnalyseurRequetes.py
 ```
 
 ## Launch client
